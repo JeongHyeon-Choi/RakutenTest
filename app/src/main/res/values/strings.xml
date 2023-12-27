@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">RakutenTest</string>
+
+
+    <string name="sort">Sort</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_all">Select All</string>
+
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+
+    <string name="title">Title</string>
+    <string name="body">Body</string>
+    <string name="updated_date">Updated Date</string>
+    <string name="created_date">Created Date</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="delete_alert_message">Delete %d Note?</string>
+    <string name="saved_alert_message">Exit without saving note?</string>
+
+    <string-array name="note_sort_spinner">
+        <item>CreatedAt Asc</item>
+        <item>CreatedAt Desc</item>
+        <item>UpdatedAt Asc</item>
+        <item>UpdatedAt Desc</item>
+        <item>Title Asc</item>
+        <item>Title Desc</item>
+    </string-array>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="text_header">16sp</dimen>
+
+    <dimen name="text_note_title">20sp</dimen>
+    <dimen name="text_note_body">16sp</dimen>
+
+</resources>

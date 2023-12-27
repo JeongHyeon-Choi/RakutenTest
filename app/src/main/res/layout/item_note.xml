@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.jhyun.rakuten.ui.note.NoteListViewModel" />
+
+        <variable
+            name="data"
+            type="com.jhyun.rakuten.ui.note.NoteListData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_checkable_table"
+        android:longClickable="true"
+        android:onClick="@{() -> viewModel.clickNoteItem(data)}"
+        android:onLongClick="@{(v) -> viewModel.clickLongNoteItem(data)}"
+        app:selected="@{data.selected}">
+
+        <TextView
+            android:id="@+id/table_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:maxLines="2"
+            android:padding="10dp"
+            android:text="@{data.title}"
+            android:textColor="@color/text_header"
+            android:textSize="@dimen/text_header"
+            app:layout_constraintEnd_toStartOf="@id/table_update_date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/title" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="@color/divider_table"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/table_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/table_update_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:maxLines="2"
+            android:padding="10dp"
+            android:text="@{data.updatedAt}"
+            android:textColor="@color/text_header"
+            android:textSize="@dimen/text_header"
+            app:layout_constraintBottom_toBottomOf="@id/table_title"
+            app:layout_constraintEnd_toStartOf="@id/table_create_date"
+            app:layout_constraintStart_toEndOf="@id/table_title"
+            app:layout_constraintTop_toTopOf="@id/table_update_date"
+            tools:text="@string/updated_date" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="@color/divider_table"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/table_update_date"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/table_create_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:maxLines="2"
+            android:padding="10dp"
+            android:text="@{data.createdAt}"
+            android:textColor="@color/text_header"
+            android:textSize="@dimen/text_header"
+            app:layout_constraintBottom_toBottomOf="@id/table_update_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/table_update_date"
+            app:layout_constraintTop_toTopOf="@id/table_update_date"
+            tools:text="@string/created_date">
+
+        </TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

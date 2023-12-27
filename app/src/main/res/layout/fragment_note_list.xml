@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.jhyun.rakuten.ui.note.NoteListViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.jhyun.rakuten.ui.note.NoteListMode"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.note.NoteListFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/action_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.noteListMode == NoteListMode.DEFAULT ? View.VISIBLE : View.GONE}"
+                android:onClick="@{() -> viewModel.clickAddNote()}"
+                android:text="@string/add"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.clickDeleteNote()}"
+                android:enabled="@{viewModel.deleteButtonEnable}"
+                android:visibility="@{viewModel.noteListMode == NoteListMode.SELECT ? View.VISIBLE : View.GONE}"
+                android:text="@string/delete"
+                app:layout_constraintEnd_toStartOf="@id/btn_cancel"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.noteListMode == NoteListMode.SELECT ? View.VISIBLE : View.GONE}"
+                android:onClick="@{() -> viewModel.clickSelectCancel()}"
+                android:text="@string/cancel"
+                app:layout_constraintEnd_toStartOf="@id/btn_select_all"
+                app:layout_constraintStart_toEndOf="@id/btn_delete"
+                app:layout_constraintTop_toTopOf="@id/btn_delete"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <Button
+                android:id="@+id/btn_select_all"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.noteListMode == NoteListMode.SELECT ? View.VISIBLE : View.GONE}"
+                android:onClick="@{() -> viewModel.clickSelectAllNote()}"
+                android:text="@string/select_all"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_cancel"
+                app:layout_constraintTop_toTopOf="@id/btn_delete"
+                app:layout_constraintWidth_percent="0.3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="10dp"
+            android:text="@string/sort"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/spinner_sort"
+            app:layout_constraintEnd_toStartOf="@id/spinner_sort"
+            app:layout_constraintTop_toTopOf="@id/spinner_sort" />
+
+        <Spinner
+            android:id="@+id/spinner_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"
+            app:layout_constraintEnd_toEndOf="@id/action_layout"
+            app:layout_constraintTop_toBottomOf="@id/action_layout" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/bg_header"
+            android:foreground="@drawable/bg_header"
+            android:visibility="@{viewModel.headerVisible ? View.VISIBLE: View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_sort"
+            app:layout_constraintWidth_percent="0.9">
+
+            <TextView
+                android:id="@+id/header_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/title"
+                android:textColor="@color/text_header"
+                android:textSize="@dimen/text_header"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/header_updated_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/divider_table"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/header_id"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/header_updated_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/updated_date"
+                android:textColor="@color/text_header"
+                android:textSize="@dimen/text_header"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/header_created_date"
+                app:layout_constraintStart_toEndOf="@id/header_id"
+                app:layout_constraintTop_toTopOf="@id/header_id" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/divider_table"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/header_updated_date"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/header_created_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/created_date"
+                android:textColor="@color/text_header"
+                android:textSize="@dimen/text_header"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/header_updated_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/header_updated_date"
+                app:layout_constraintTop_toTopOf="@id/header_updated_date" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/note_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/header_layout"
+            app:layout_constraintStart_toStartOf="@id/header_layout"
+            app:layout_constraintTop_toBottomOf="@id/header_layout"
+            tools:listitem="@layout/item_note" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.loadingEvent ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

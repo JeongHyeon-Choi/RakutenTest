@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.jhyun.rakuten.ui.note.editor.NoteEditorViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.note.editor.NoteEditorFragment">
+
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@null"
+            android:onClick="@{() -> viewModel.clickBackButton()}"
+            android:scaleType="fitXY"
+            android:src="@drawable/btn_arrow_back"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.1" />
+
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:onClick="@{() -> viewModel.clickEditButton()}"
+            android:text="@string/edit"
+            android:visibility="@{viewModel.noteEditing ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_back"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <Button
+            android:id="@+id/btn_edit_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:onClick="@{() -> viewModel.clickEditCancelButton()}"
+            android:text="@string/cancel"
+            android:visibility="@{viewModel.noteEditing ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_back"
+            app:layout_constraintWidth_percent="0.25" />
+
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:enabled="@{viewModel.isEdited()}"
+            android:onClick="@{() -> viewModel.clickSaveButton()}"
+            android:text="@string/save"
+            android:visibility="@{viewModel.noteEditing ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintEnd_toStartOf="@id/btn_edit_cancel"
+            app:layout_constraintTop_toTopOf="@id/btn_back"
+            app:layout_constraintWidth_percent="0.25" />
+
+
+        <EditText
+            android:id="@+id/editor_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="@string/title"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:text="@={viewModel.title}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_note_title"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_back"
+            app:note_editable="@{viewModel.noteEditing}" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:dividerInsetEnd="10dp"
+            app:dividerInsetStart="10dp"
+            app:dividerThickness="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editor_title" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingTop="10dp"
+            android:paddingBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editor_title">
+
+            <EditText
+                android:id="@+id/editor_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/body"
+                android:padding="10dp"
+                android:text="@={viewModel.body}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_note_body"
+                app:note_editable="@{viewModel.noteEditing}" />
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
